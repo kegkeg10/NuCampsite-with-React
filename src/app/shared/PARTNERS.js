@@ -9,9 +9,9 @@ export const PARTNERS = [
         name: 'Bootstrap Outfitters',
         image: bootStrapLogo,
         featured: false,
-        headerColor: 'blue',
         description:
             "Bootstrap Outfitters supplies you with the gear you need at prices you can't beat.",
+            headerColor: 'red',
     },
     {
         id: 1,
@@ -20,7 +20,7 @@ export const PARTNERS = [
         featured: false,
         description:
             'Join Git Out Expeditions to explore new horizons with a group of other adventurers!',
-            headerColor: 'red'
+            headerColor: 'blue',
     },
     {
         id: 2,
@@ -29,7 +29,7 @@ export const PARTNERS = [
         featured: false,
         description:
             'Need a new fishing pole, a tacklebox, or flies of all kinds? Stop by Mongo Fly Shop.',
-            headerColor: 'green'
+            headerColor: 'green',
     },
     {
         id: 3,
