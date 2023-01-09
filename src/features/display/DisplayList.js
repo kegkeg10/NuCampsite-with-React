@@ -1,20 +1,36 @@
+import { useSelector } from "react-redux";
 import { Col, Row } from "reactstrap";
 // import DisplayCard from './DisplayCard'
 import AnimatedDisplayCard from "./AnimatedDisplayCard";
 import { selectFeaturedCampsite } from "../campsites/campsitesSlice";
 import { selectFeaturedPromotion } from "../promotion/promotionsSlice";
 import { selectFeaturedPartner } from "../partners/partnersSlice";
+import Error from '../../components/Error';
+import Loading from '../../components/loading';
 
 const DisplayList = () => {
-    const items = [selectFeaturedCampsite(), selectFeaturedPromotion(), selectFeaturedPartner()];
+    const items = useSelector((state) => [
+        selectFeaturedCampsite(state),
+        selectFeaturedPromotion(state),
+        selectFeaturedPartner(state)
+    ]);
+
+    console.log('display item:', items)
 
     return (
         <Row>
             {items.map((item, idx) => {
+                const { featuredItem, isLoading, errMsg } = item;
+                if (isLoading) {
+                    return <Loading key={idx} />;
+                }
+                if (errMsg) {
+                    return <Error errMsg={errMsg} key={idx} />;
+                }
                 return (
-                    item && (
+                    featuredItem && (
                         <Col md className="m-1" key={idx}>
-                            <AnimatedDisplayCard item={item} />
+                            <AnimatedDisplayCard item={featuredItem} />
                         </Col>
                     )
                 )

@@ -1,9 +1,31 @@
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Col } from "reactstrap";
 import Comment from "./Comment";
 import { selectCommentsByCampsiteId } from "./commentSlice";
+import CommentForm from "./CommentsForm";
+import Error from "../../components/Error";
+import Loading from "../../components/loading";
 
 const CommentList = ({ campsiteId }) => {
-    const comments = selectCommentsByCampsiteId(campsiteId);
+    const comments = useSelector(selectCommentsByCampsiteId(campsiteId));
+    const isLoading = useSelector((state) => state.comments.isLoading);
+    const errMsg = useSelector((state) => state.comments.errMsg);
+    useEffect (() => {
+        console.log('bop', comments)
+    },[comments])
+
+    if (isLoading) {
+        return (
+                <Loading />
+        );
+    }
+
+    if (errMsg) {
+        return (
+                <Error errMsg={errMsg} />
+        );
+    }
 
     if (comments && comments.length > 0) {
         return (
@@ -12,6 +34,7 @@ const CommentList = ({ campsiteId }) => {
                 {comments.map((comment) => {
                     return <Comment key={comment.id} comment={comment} />;
                 })}
+                <CommentForm cid={campsiteId} />
             </Col>
         );
     }
